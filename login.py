@@ -13,7 +13,7 @@ from garminconnect import (
 )
 
 
-TOKEN_STORE_PATH = Path(os.environ["TOKEN_STORE_PATH"])
+TOKEN_STORE_PATH = Path(os.getenv("TOKEN_STORE_PATH", "tokens"))
 
 def init_api() -> Garmin | None:
     """Initialize Garmin API with authentication and token management."""

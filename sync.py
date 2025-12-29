@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from datetime import date, timedelta
+from dotenv import load_dotenv
 import json
 import os
 from pathlib import Path
@@ -12,7 +13,9 @@ from garminconnect import (
 )
 
 
-TOKEN_STORE_PATH = Path(os.environ["TOKEN_STORE_PATH"])
+load_dotenv()
+
+TOKEN_STORE_PATH = Path(os.getenv("TOKEN_STORE_PATH", "tokens"))
 TRACKER_TOKEN = os.environ["TRACKER_TOKEN"]
 
 def sync_steps(days_back):
