@@ -1,0 +1,24 @@
+services:
+
+  login:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./state:/state
+    environment:
+      TOKEN_STORE_PATH: /state
+    command: ["python", "login.py"]
+    network_mode: host
+
+  sync:
+    build: .
+    volumes:
+      - ./state:/state
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TOKEN_STORE_PATH: /state
+      TRACKER_TOKEN: ${TRACKER_TOKEN:?required}
+    command: ["python", "sync.py", "${SYNC_DAYS:-3}"]
+    network_mode: host
